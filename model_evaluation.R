@@ -21,7 +21,9 @@ hit_rate=training_predictions %>% group_by(rounded)%>%summarise(hit=mean(boolean
 #calibration graph
 p1=ggplot(hit_rate,aes(x=probability,y=rounded))+
   geom_abline(intercept=0,slope=1,linetype="dotted")+
-  labs(tite="Train Calibration", x="Hit Rate Model",y="Hit Rate Actual")
+  geom_point(aes(size=size))+
+  labs(x="Hit Rate Model",y="Hit Rate Actual")+
+  ggtitle("Calibration Graph [Test]")
 
 #test data
 test_predictions=read.table("test_predictions.txt")
@@ -43,6 +45,7 @@ hit_rate_test=test_predictions %>% group_by(rounded)%>%summarise(hit=mean(boolea
 p3=ggplot(hit_rate_test,aes(x=probability,y=rounded))+
   geom_point(aes(size=size))+
   geom_abline(intercept=0,slope=1,linetype="dotted")+
-  labs(tite="Test Calibration", x="Hit Rate Model",y="Hit Rate Actual")
+  labs(x="Hit Rate Model",y="Hit Rate Actual")+
+  ggtitle("Calibration Graph [Training]")
 
 grid.arrange(p1,p3, ncol=2,nrow=1)
