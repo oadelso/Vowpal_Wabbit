@@ -14,14 +14,10 @@ def read_trump_data(file,separator='\t'):
     for line in file:
         yield line.rstrip().split(separator,2)
 
-
-
 def main(separator='\t'):  
-   #replicate
    data=read_trump_data(sys.stdin,separator=separator)
    
    for line in data:
-
         #Start with assigning the label per tweet
         #need to be 1 and -1 for logit regression
         if line[0] == 'Staff':
@@ -39,7 +35,7 @@ def main(separator='\t'):
         time = datetime.strptime(line[1], "%Y-%m-%d %H:%M:%S")
         hour = time.hour
         
-         #report which quarter of the hour the tweet was written
+        #report which quarter of the hour the tweet was released
         minute=int(time.minute)
         quarter=1
         
@@ -50,23 +46,23 @@ def main(separator='\t'):
         elif minute>=15:
             quarter=2
               
-        # Get the percetage that words like 'my' 'mine' and 'i; make up
-        #of the entire text in the tweet
+        #Get the percetage of the total # of words in tweet that are 'my' 'mine' or 'i'
         number_words = len(line[2].strip().split(' '))
-        #lower case
+        #lower case the text in the tweet
         count_my=len(re.findall(' my ',line[2].lower()))
         count_mine=len(re.findall(' mine ',line[2].lower()))
         count_i=len(re.findall(' i ',line[2].lower()))
+        #calculate the %
         ratio=(count_i+count_mine+count_my)/number_words
         #provide lenght of tweet in characters
         characters = len(line[2])
 
-        #boolean for link
+        #boolean for link present in tweet or not
         boolean = '0'
         if "http" in line[2]:
             boolean = '1'
             
-        #output in vw-friendly format
+        #output in vw-friendly format, exclude any ":" in tweet 
         print(vw_label + ' ' + label + ' |tweet_content ' + line[2].replace(':', '') + \
         ' |time_info ' + str(hour) +' ' +str(quarter)+ ' |ratio ' + str(ratio) + \
         ' length:' + str(characters) + ' boolean:' + boolean)
