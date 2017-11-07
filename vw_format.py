@@ -3,6 +3,7 @@
 """
 Created on Fri Oct 27 07:46:15 2017
 
+Things to add:
 @author: oseasa
 """
 import sys
@@ -39,7 +40,7 @@ def main(separator='\t'):
         time = datetime.strptime(line[1], "%Y-%m-%d %H:%M:%S")
         hour = time.hour
         
-         #report which quarter of the hour the tweet was written
+        #report which quarter of the hour the tweet was written
         minute=int(time.minute)
         quarter=1
         
@@ -57,24 +58,36 @@ def main(separator='\t'):
         count_my=len(re.findall(' my ',line[2].lower()))
         count_mine=len(re.findall(' mine ',line[2].lower()))
         count_i=len(re.findall(' i ',line[2].lower()))
-        ratio=(count_i+count_mine+count_my)/number_words
+        count_me=len(re.findall(' me ',line[2].lower()))
+        count_im=len(re.findall(" i'm ",line[2].lower()))
+        ratio=(count_i+count_mine+count_my+count_me+count_im)/number_words
+        
         #provide lenght of tweet in characters
         characters = len(line[2])
 
-         #boolean for link present in tweet or not
+        #boolean for link/hashtag and @ present in tweet or not
         boolean = '0'
         if "http" in line[2]:
             boolean = '1'
         
+        boolean_2 = '0'
+        
+        if "#" in line[2]:
+            boolean_2 = '1'
+        
+        boolean_3='0'
+        
+        if "@" in line[2]:
+            boolean_3='1'
         #exclamation count
         exclamation_count=len(re.findall("!",line[2]))
         
             
         #output in vw-friendly format
         print(vw_label + ' ' + label + ' |tweet_content ' + line[2].replace(':', '') + \
-        ' |time_info ' + str(hour) +' ' +str(quarter)+ ' |ratio ' + str(ratio) + \
+        ' |time_info ' + str(hour) + ' ' +str(quarter)+ ' |ratio ' + str(ratio) + \
         ' length:' + str(characters) + ' exclamation_count:' + str(exclamation_count)+ \
-        ' boolean:' +boolean)
+        ' boolean:' + boolean + ' ' +boolean_2 + ' ' + boolean_3)
 
 
 if __name__ == "__main__":
