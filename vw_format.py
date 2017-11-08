@@ -2,15 +2,32 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Oct 27 07:46:15 2017
-
-Things to add:
 @author: oseasa
+The following python script converts a tsv consisting of 
+1,240 tweets, with three rows containing the following information:
+    1) Authorship of the tweet, label either Trump or Staff
+    2) Time-stamp of when the tweet was published
+    3) Content of the tweet
+It spits out a vw-friendly file containing a series of 6 Namespaces; these 
+being:
+    1) Tweet content: has as feautres all strings separated by a ' ', with any 
+    instance of ':' removed in order to run smoothly with vw
+    2) Time info: has as features both the hour and quarter-of-the hour the 
+    tweet was published
+    3) Ration: has as feature the fraction of strings in the tweet that are 
+    either 'me' 'i' 'i'm' 'my' 'mine'
+    4) Lenght: the number of characters in the tweet
+    5) Exclamation count: has as feautre the interger count of the times an
+    exlamation "!" appears in the tweet content
+    6) Boolean: has three features: three booleans that take value of 0 or 1
+    depending on whether there is a hyperlink, a '@' or '#' in the tweet.
 """
+#import required libraries
 import sys
 import re
 from datetime import datetime
 
-# input comes from STDIN
+#define function
 def read_trump_data(file,separator='\t'):
     for line in file:
         yield line.rstrip().split(separator,2)
@@ -18,7 +35,7 @@ def read_trump_data(file,separator='\t'):
 
 
 def main(separator='\t'):  
-   #replicate
+   #input comes from STDIN
    data=read_trump_data(sys.stdin,separator=separator)
    
    for line in data:
