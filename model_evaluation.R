@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript
 '
 The following R script calculates AUC values for two sets of data:
 1) Training data and 2) test data, corresponding to 80% and 20% of the
@@ -14,8 +15,6 @@ rm(list = objects())
 setwd(dir = getwd())
 
 ##Required libraries
-#!/usr/bin/Rscript
-#install.packages('ROCR')
 library(ROCR)
 library(tidyverse)
 library(data.table)
