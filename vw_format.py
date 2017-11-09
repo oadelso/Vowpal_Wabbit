@@ -16,10 +16,11 @@ being:
     tweet was published
     3) Ration: has as feature the fraction of strings in the tweet that are 
     either 'me' 'i' 'i'm' 'my' 'mine'
-    4) Lenght: the number of characters in the tweet
-    5) Exclamation count: has as feautre the interger count of the times an
+In addition we add the following three features:
+    1) Lenght: the number of characters in the tweet
+    2) Exclamation count: has as feautre the interger count of the times an
     exlamation "!" appears in the tweet content
-    6) Boolean: has three features: three booleans that take value of 0 or 1
+    3) Boolean: the combination of three booleans that take value of 0 or 1
     depending on whether there is a hyperlink, a '@' or '#' in the tweet.
 """
 #import required libraries
