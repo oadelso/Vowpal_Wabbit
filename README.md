@@ -1,1 +1,2 @@
-# mse231_hw3
+# Logistic Regression - Vowpal Wabbit
+A collection of 1,240 tweets from Trump’s Twitter account were formatted and splitted into both a training- and test-datasets; the former of these two was used to train a logistic regression model via Vowpal Wabbit, vw, that categorizes future tweets as either written by Trump, or by his staff, and achieved an AUC value of 0.9260647 on the test dataset. How the original dataset was edited—and the logistic regression model calibrated in vw—is presented below. 
